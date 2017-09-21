@@ -1,5 +1,7 @@
 Please enter your information for the phone book.
+<link rel = "stylesheet" href ="css/style.css">
 <form method = "post" action = "/index">
+<div class="info">
     <input type = "text" name = "first_name" placeholder = "First Name">
     <input type = "text" name = "last_name" placeholder = "Last Name">
     <input type = "text" name = "address" placeholder = "Street Address">
@@ -8,21 +10,78 @@ Please enter your information for the phone book.
     <input type = "text" name = "zip" placeholder = "Zip Code">
     <input type = "text" name = "phonenumber" placeholder = "Phone Number">
     <input type = "text" name = "email" placeholder = "Email Address">
-    
-    <input type = "submit" value = "Click here to add information to the Phone Book">
-
+    <input type = "submit" value = "submit">
+</div>
 </form>
 
-<% phonebook.each do |value| %>
-<tr>
-    <td> <%= value['first_name'] %> </td>
-    <td> <%= value['last_name'] %> </td>
-    <td> <%= value['street'] %> </td>
-    <td> <%= value['city'] %> </td>
-    <td> <%= value['state'] %> </td>
-    <td> <%= value['zip'] %> </td>
-    <td> <%= value['phone'] %> </td>
-    <td> <%= value['email'] %> </td>
+<input type="text" id="myInput" onkeyup="searchFunction()" placeholder="Search...">
+<input type = "submit" value = "submit">
+<table id="myTable">
+<tr class="header">
+    <th style="width:10%;">First Name</th>
+    <th style="width:10%;">Last Name</th>
+    <th style="width:10%;">Address</th>
+    <th style="width:10%;">City</th>
+    <th style="width:10%;">State</th>
+    <th style="width:10%;">Zip</th>
+    <th style="width:10%;">Phone</th>
+    <th style="width:10%;">Email</th>
 </tr>
+
+<%phonebook.each do |value|%>
+<tr>
+    <td> <%= value['first_name']%> </td>
+    <td> <%= value['last_name']%> </td>
+    <td> <%= value['address']%> </td>
+    <td> <%= value['city']%> </td>
+    <td> <%= value['state']%> </td>
+    <td> <%= value['zip']%> </td>
+    <td> <%= value['phonenumber']%> </td>
+    <td> <%= value['email']%> </td>
+</tr>
+<%end%>
+
+</table>
+<script>
+function searchFunction() {
+    var input, filter, table, tr, td, i;
+    input = document.getElwmwntById("myInput");
+    filter = input.value.toUpperCase()
+    tr = table.getElementsByTagName("tr")
+    for (i = 0; i < tr.length; i++){
+        td = tr[i].getElementsByTagName("td")[0];
+        if (td) {
+            if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                tr[i].style.display = "";
+            } else {
+              tr[i].style.display = "none" ;
+            }
+        }
+    }
+}
+</script>
+
+<form action='/column_refresh' method='post'>
+    <select name='table'>
+        <option value='col_first_name'>First Name</option>
+        <option value='col_last_name'>Last Name</option>
+        <option value='col_address'>Address</option>
+        <option value='col_city'>City</option>
+        <option value='col_state'>State</option>
+        <option value='col_zip'>Zip</option>
+        <option value='col_phone'>Phone Number</option>
+        <option value='col_email'>Email</option>
+    </select>
+    <br>
+
+        <input type="text" name="new_data" placeholder="Updates"><br>
+        <input type="text" name="old_data" placeholder="Outdated"><br>
+        <input type="submit" value="Update">
+</form>
+
 <br>
-<% end %>
+<br> 
+
+<form action='/delete_all' method='post'>
+    <input type = "submit" value = "delete">
+ </form>
