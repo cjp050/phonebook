@@ -1,6 +1,5 @@
 require "sinatra"
 require 'pg'
-enable :sessions    
 load './local_env.rb' if File.exist?('./local_env.rb')
 
 db_params = {
@@ -20,13 +19,13 @@ get '/' do
 end 
 
 post '/index' do 
-    session[:first_name] = params[:first_name]
-    session[:last_name] = params[:last_name]
-    session[:address] = params[:address]
-    session[:email] = params[:email]
-    session[:state] = params[:state]
-    session[:city] = params[:city]
-    session[:zip] = params[:zip]
-    session[:phonenumber] = params[:phonenumber]
+    first_name = params[:first_name]
+    last_name = params[:last_name]
+     address = params[:address]
+    email = params[:email]
+    state = params[:state]
+    city = params[:city]
+    zip = params[:zip]
+    phonenumber = params[:phonenumber]
     db.exec("INSERT INTO public.data(first_name, last_name, address, phonenumber, email, city, state, zip) VALUES('#{first_name}', '#{last_name}', '#{address}', '#{phonenumber}', '#{email}', '#{city}', '#{state}', '#{zip}')");
 end 
