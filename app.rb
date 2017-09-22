@@ -57,6 +57,30 @@ when 'col_phonenumber'
     redirect '/'
 end 
 
+post "/delete" do
+    deleted = params[:data_to_delete]
+    column = params[:table_column]
+case column
+       when 'col_first_name'
+        db.exec("DELETE FROM data WHERE first_name = '#{deleted}'")
+    when 'col_last_name'
+           db.exec("DELETE FROM data WHERE last_name = '#{deleted}'");
+       when 'col_address'
+        db.exec("DELETE FROM data WHERE address = '#{deleted}'");
+    when 'col_city'
+        db.exec("DELETE FROM data WHERE city = '#{deleted}'");
+    when 'col_state'
+        db.exec("DELETE FROM data WHERE state = '#{deleted}'");
+    when 'col_zip'
+        db.exec("DELETE FROM data WHERE zip = '#{deleted}'");        
+    when 'col_phone'
+        db.exec("DELETE FROM data WHERE phone = '#{deleted}'");
+    when 'col_email'
+     db.exec("DELETE FROM data WHERE email = '#{deleted}'");
+end
+ redirect '/'
+end
+
 post '/delete_all' do 
     db.exec("TRUNCATE data");
     redirect '/'

@@ -54,27 +54,27 @@ Please enter your information for the phone book.
 <%end%>
 </table>
 
-<script>
-function searchFunction() {
-    var user_given_search_input, uppercase_filter, table, table_row, table_cell, index_position;
+# <script>
+# function searchFunction() {
+#     var user_given_search_input, uppercase_filter, table, table_row, table_cell, index_position;
     
-    user_given_search_input = document.getElementById("search_bar_input")
-    uppercase_filter = user_given_search_input.value.toUpperCase();
-    table = document.getElementById("search_results_table")
-    table_row = table.getElementsByTagName("tr")
-    for (index_position = 0; index_position < table_row.length; index_position++) {
-        table_cell = table_row[index_position].getElementsByTagName("td")[0];
-        if (table_cell) {
-            if (table_cell.innerHTML.toUpperCase().indexOf(uppercase_filter) > -1) {
-                table_row[index_position].style.display = "";
-            }
-            else {
-                table_row[index_position].style.display = "none";
-            }
-        }
-    }
-}
-</script>
+#     user_given_search_input = document.getElementById("search_bar_input")
+#     uppercase_filter = user_given_search_input.value.toUpperCase();
+#     table = document.getElementById("search_results_table")
+#     table_row = table.getElementsByTagName("tr")
+#     for (index_position = 0; index_position < table_row.length; index_position++) {
+#         table_cell = table_row[index_position].getElementsByTagName("td")[0];
+#         if (table_cell) {
+#             if (table_cell.innerHTML.toUpperCase().indexOf(uppercase_filter) > -1) {
+#                 table_row[index_position].style.display = "";
+#             }
+#             else {
+#                 table_row[index_position].style.display = "none";
+#             }
+#         }
+#     }
+# }
+# </script>
 
 <form action='/column_refresh' method='post'>
     <select name='table'>
@@ -97,6 +97,23 @@ function searchFunction() {
 <br>
 <br> 
 
+<form action='/delete' method='post'> Delete your information by:<br>
+
+   	<select name='table_column'>
+		<option value='col_first_name'>First Name</option>
+		<option value='col_last_name'>Last Name</option>
+		<option value='col_address'>Address</option>
+		<option value='col_city'>City</option>
+		<option value='col_state'>State</option>
+		<option value='col_zip'>Zip</option>
+		<option value='col_phone'>Phone</option>
+		<option value='col_email'>Email</option>
+	</select><br>
+   <input type="text" name="data_to_delete" placeholder="Delete Info"><br>
+
+	   <input type="submit" value="Delete">
+</form>
+
 <form action='/delete_all' method='post'>
-    <input type = "submit" value = "delete">
+    <input type = "submit" value = "delete_all">
  </form>
