@@ -1,5 +1,7 @@
 require "sinatra"
+require_relative "phonebook.rb"
 require 'pg'
+enable 'sessions'
 load './local_env.rb' if File.exist?('./local_env.rb')
 
 db_params = {
@@ -10,10 +12,10 @@ db_params = {
     password: ENV['password']
 }
 
-db = PG::Connection.new(db_params)
+$db = PG::Connection.new(db_params)
 
 get '/' do 
-    phonebook = db.exec("Select * From data")
+    phonebook = $db.exec("Select * From data")
     erb :index, locals: {phonebook: phonebook}
     
 end 
@@ -84,4 +86,16 @@ end
 post '/delete_all' do 
     db.exec("TRUNCATE data");
     redirect '/'
+end 
+
+get '/search_contacts' do 
+    erb :search_contacts
+end 
+
+post '/handle_search' do 
+    @params = params
+    print @params
+    session[:search_table] = full_search_table_render(@params)
+    print session[:search_table]
+    redirect '/search_contacts' 
 end 
