@@ -15,7 +15,6 @@ Please enter your information for the phone book.
 </form>
 
 <input type="text" id="myInput" onkeyup="searchFunction()" placeholder="Search...">
-<input type = "submit" value = "submit">
 <table id="myTable">
 <tr class="header">
     <th style="width:10%;">First Name</th>
@@ -43,18 +42,21 @@ Please enter your information for the phone book.
 
 </table>
 <script>
-function searchFunction() {
-    var input, filter, table, tr, td, i;
-    input = document.getElwmwntById("myInput");
-    filter = input.value.toUpperCase()
-    tr = table.getElementsByTagName("tr")
-    for (i = 0; i < tr.length; i++){
-        td = tr[i].getElementsByTagName("td")[0];
-        if (td) {
-            if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
-                tr[i].style.display = "";
-            } else {
-              tr[i].style.display = "none" ;
+function search_function() {
+    var user_given_search_input, uppercase_filter, table, table_row, table_cell, index_position;
+    
+    user_given_search_input = document.getElementById("search_bar_input")
+    uppercase_filter = user_given_search_input.value.toUpperCase();
+    table = document.getElementById("search_results_table")
+    table_row = table.getElementsByTagName("tr")
+    for (index_position = 0; index_position < table_row.length; index_position++) {
+        table_cell = table_row[index_position].getElementsByTagName("td")[0];
+        if (table_cell) {
+            if (table_cell.innerHTML.toUpperCase().indexOf(uppercase_filter) > -1) {
+                table_row[index_position].style.display = "";
+            }
+            else {
+                table_row[index_position].style.display = "none";
             }
         }
     }
