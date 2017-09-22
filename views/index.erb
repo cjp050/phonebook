@@ -27,6 +27,19 @@ Please enter your information for the phone book.
     <th style="width:10%;">Email</th>
 </tr>
 
+# <form>
+# <select name = 'new_table_cell'>
+#     <option value=0>First Name</option>
+#     <option value=1>Last Name</option>
+#     <option value=2>Address</option>
+#     <option value=3>City</option>
+#     <option value=4>State</option>
+#     <option value=5>Zip</option>
+#     <option value=6>Phone</option>
+#     <option value=7>Email</option>
+# </select>
+# </form>
+
 <%phonebook.each do |value|%>
 <tr>
     <td> <%= value['first_name']%> </td>
@@ -39,10 +52,10 @@ Please enter your information for the phone book.
     <td> <%= value['email']%> </td>
 </tr>
 <%end%>
-
 </table>
+
 <script>
-function search_function() {
+function searchFunction() {
     var user_given_search_input, uppercase_filter, table, table_row, table_cell, index_position;
     
     user_given_search_input = document.getElementById("search_bar_input")
