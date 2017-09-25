@@ -1,6 +1,7 @@
 require "sinatra"
 require_relative "phonebook.rb"
 require 'pg'
+require "bcrypt"
 enable 'sessions'
 load './local_env.rb' if File.exist?('./local_env.rb')
 
@@ -15,10 +16,37 @@ db_params = {
 $db = PG::Connection.new(db_params)
 
 get '/' do 
-    phonebook = $db.exec("Select * From data")
-    erb :index, locals: {phonebook: phonebook}
-    
+   login = $db.exec("Select * from login")
+    # phonebook = $db.exec("Select * From data")
+    erb :login, locals: {login: login}
 end 
+
+post "/login" do 
+    username = params[:username]
+    password = params[:password]
+
+    correct = $db.exec("SELECT * FROM login WHERE username = '#{username}'")
+    login_data = correct.values.flatten
+    if login_data.include?(password)
+    redirect "/index"
+    else 
+        redirect "/"
+    end
+    
+end
+
+post "/register" do
+    user = params[:new_user]
+    password = params[:new_password]
+    $db.exec("INSERT INTO login(username, password) VALUES('#{user}', '#{password}')");
+redirect "/"
+end
+ 
+get "/index" do 
+    info = $db.exec("Select * From login")
+    #info_array = info.values
+    erb :index, locals: {info: info}
+end
 
 post '/index' do 
     first_name = params[:first_name]
@@ -29,7 +57,7 @@ post '/index' do
     city = params[:city]
     zip = params[:zip]
     phonenumber = params[:phonenumber]
-    db.exec("INSERT INTO public.data(first_name, last_name, address, phonenumber, email, city, state, zip) VALUES('#{first_name}', '#{last_name}', '#{address}', '#{phonenumber}', '#{email}', '#{city}', '#{state}', '#{zip}')");
+    $db.exec("INSERT INTO public.data(first_name, last_name, address, phonenumber, email, city, state, zip) VALUES('#{first_name}', '#{last_name}', '#{address}', '#{phonenumber}', '#{email}', '#{city}', '#{state}', '#{zip}')");
     redirect '/'
 end 
 

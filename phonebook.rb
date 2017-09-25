@@ -60,4 +60,4 @@
                             # TIE THEM ALL TOGETHER
                             def full_search_table_render(form_input_hash)
                                 prep_html(response_obj(prep_query(form_input_hash)))
-                            end
+                            end                             

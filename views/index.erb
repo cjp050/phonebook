@@ -33,7 +33,7 @@ Please enter your information for the phone book.
  <br>
  <br>
  <br>
-# <input type="text" id="searchFunction()" onkeyup="searchFunction()" placeholder="Search...">
+<input type="text" id="searchFunction()" onkeyup="searchFunction()" placeholder="Search...">
 <table id="myTable">
 <tr class="header">
     <th style="width:10%;">First Name</th>
@@ -46,11 +46,6 @@ Please enter your information for the phone book.
     <th style="width:10%;">Email</th>
 </tr>
 
-<br>
-<br>
-<br>
-<br>
-<br>
 <!-- <form>
  <select name = 'new_table_cell'>
    <option value=0>First Name</option>
@@ -63,11 +58,8 @@ Please enter your information for the phone book.
          <option value=7>Email</option>
 </select>
 </form> -->
-<br>
-<br>
-<br>
-<br>
-<%phonebook.each do |value|%>
+
+<%info.each do |value|%>
 <tr>
     <td> <%= value['first_name']%> </td>
     <td> <%= value['last_name']%> </td>
@@ -120,9 +112,6 @@ Please enter your information for the phone book.
         <input type="text" name="old_data" placeholder="Outdated"><br>
         <input type="submit" value="Update">
 </form>
-
-<br>
-<br> 
 
 <form action='/delete' method='post'> Delete your information by:<br>
 
