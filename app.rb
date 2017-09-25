@@ -1,7 +1,7 @@
 require "sinatra"
 require_relative "phonebook.rb"
 require 'pg'
-require "bcrypt"
+require 'bcrypt'
 enable 'sessions'
 load './local_env.rb' if File.exist?('./local_env.rb')
 
@@ -38,6 +38,7 @@ end
 post "/register" do
     user = params[:new_user]
     password = params[:new_password]
+    secure_password = BCrypt::Password.create "#{password}"
     $db.exec("INSERT INTO login(username, password) VALUES('#{user}', '#{password}')");
 redirect "/"
 end
